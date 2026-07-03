@@ -1,4 +1,4 @@
-# Scraping from 100+ Newspapers
+# News Headline Clusterer: 100+ Newspaper Sources
 
 Complete guide to using the expanded RSS feed list to scrape headlines from over 100 newspapers worldwide.
 

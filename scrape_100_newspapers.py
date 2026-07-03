@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Scrape Headlines from 100+ Newspapers
+News Headline Clusterer: Scrape Headlines from 100+ Newspapers
 Demonstrates how to use the expanded feed list with different configurations
 """
 

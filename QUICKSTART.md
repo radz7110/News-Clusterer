@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get the Topic Clusterer up and running in 5 minutes.
+Get News Headline Clusterer up and running in 5 minutes.
 
 ## 1. Setup (1 minute)
 

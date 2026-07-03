@@ -1,4 +1,4 @@
-# 👋 Welcome to Topic Clusterer
+# 👋 Welcome to News Headline Clusterer
 
 **You found a project to cluster news headlines from 100+ newspapers using AI!**
 
@@ -19,8 +19,8 @@ Topic Clusterer automatically:
 
 ### 1. Clone This Repository
 ```bash
-git clone https://github.com/YOUR-USERNAME/topic-clusterer.git
-cd topic-clusterer
+git clone https://github.com/YOUR-USERNAME/news-headline-clusterer.git
+cd news-headline-clusterer
 ```
 
 ### 2. Set Up (5 minutes)

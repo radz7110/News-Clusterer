@@ -1,10 +1,10 @@
-# 📰 Topic Clusterer for News Articles
+# 📰 News Headline Clusterer
 
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/topic-clusterer.svg)](https://github.com/yourusername/topic-clusterer)
+[![GitHub Stars](https://img.shields.io/github/stars/yourusername/news-headline-clusterer.svg)](https://github.com/yourusername/news-headline-clusterer)
 
-> **Automatically discover, cluster, and visualize news topics from 100+ newspapers worldwide using AI**
+> **Automatically discover, cluster, and visualize news headlines from 100+ newspapers worldwide using AI**
 
 An intelligent pipeline that:
 1. 📡 **Scrapes** 100+ headlines from major news sources

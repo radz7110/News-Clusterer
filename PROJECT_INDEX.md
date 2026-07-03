@@ -1,6 +1,6 @@
-# Topic Clusterer Project Index
+# News Headline Clusterer - Project Index
 
-A complete implementation of a news article topic clustering system with RSS scraping, AI embeddings, DBSCAN clustering, LLM labeling, and interactive visualization.
+A complete implementation of a news headline clustering system with RSS scraping, AI embeddings, DBSCAN clustering, LLM labeling, and interactive visualization.
 
 ## 📁 Project Structure
 

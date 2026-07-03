@@ -1,5 +1,5 @@
 """
-Topic Clusterer for News Articles
+News Headline Clusterer
 Scrapes RSS feeds → embeds headlines → clusters with DBSCAN → labels with LLM → plots interactive map
 """
 
@@ -463,7 +463,7 @@ def main():
     Main pipeline: scrape → embed → cluster → label → visualize
     """
     print("=" * 60)
-    print("Topic Clusterer for News Articles")
+    print("📰 News Headline Clusterer")
     print("=" * 60)
 
     # 1. Scrape articles
