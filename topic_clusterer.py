@@ -26,42 +26,116 @@ import anthropic
 load_dotenv()
 
 
-def scrape_rss_feeds(num_articles: int = 100) -> List[dict]:
+def load_feeds_from_json(feeds_file: str = "feeds.json") -> List[dict]:
     """
-    Scrape headlines from multiple RSS feeds.
-    Returns list of dicts with 'title', 'description', 'source', 'published'.
+    Load RSS feeds from JSON configuration file.
+    Returns list of feed dicts with 'name', 'url', 'category', 'country'.
     """
-    # BBC News, Reuters, CNN, The Guardian, HackerNews
-    feeds = [
-        "http://feeds.bbci.co.uk/news/rss.xml",
-        "https://feeds.reuters.com/reuters/topNews",
-        "http://rss.cnn.com/rss/cnn_topstories.rss",
-        "https://feeds.theguardian.com/theguardian/world/rss",
-        "https://feeds.ycombinator.com/frontpage",
+    try:
+        with open(feeds_file, 'r') as f:
+            feeds_data = json.load(f)
+
+        # Flatten all feeds from categories
+        all_feeds = []
+        for category, feeds_list in feeds_data.get('categories', {}).items():
+            all_feeds.extend(feeds_list)
+
+        print(f"Loaded {len(all_feeds)} feeds from {feeds_file}")
+        return all_feeds
+
+    except FileNotFoundError:
+        print(f"Warning: {feeds_file} not found, using default feeds")
+        return []
+
+
+def get_default_feeds() -> List[dict]:
+    """
+    Fallback feed list if feeds.json is not available.
+    """
+    return [
+        {"name": "BBC News", "url": "http://feeds.bbci.co.uk/news/rss.xml", "category": "General News", "country": "UK"},
+        {"name": "Reuters", "url": "https://feeds.reuters.com/reuters/topNews", "category": "General News", "country": "International"},
+        {"name": "CNN", "url": "http://rss.cnn.com/rss/cnn_topstories.rss", "category": "General News", "country": "USA"},
+        {"name": "The Guardian", "url": "https://feeds.theguardian.com/theguardian/world/rss", "category": "General News", "country": "UK"},
+        {"name": "HackerNews", "url": "https://feeds.ycombinator.com/frontpage", "category": "Technology", "country": "USA"},
     ]
 
-    articles = []
-    per_feed = num_articles // len(feeds)
 
-    for feed_url in feeds:
+def scrape_rss_feeds(num_articles: int = 100, use_json_feeds: bool = True) -> List[dict]:
+    """
+    Scrape headlines from multiple RSS feeds (100+ sources available).
+
+    Args:
+        num_articles: Target number of articles to scrape
+        use_json_feeds: Whether to load from feeds.json (True) or use defaults (False)
+
+    Returns:
+        List of dicts with 'title', 'description', 'source', 'published', 'category', 'country'.
+    """
+    # Load feeds
+    if use_json_feeds:
+        feeds = load_feeds_from_json("feeds.json")
+
+    if not feeds:
+        feeds = get_default_feeds()
+
+    # Distribute articles evenly across feeds
+    articles_per_feed = max(1, num_articles // len(feeds))
+
+    articles = []
+    successful_feeds = 0
+    failed_feeds = 0
+
+    print(f"\nScraping from {len(feeds)} news sources...")
+    print(f"Target: ~{articles_per_feed} articles per feed = {num_articles} total\n")
+
+    for feed_info in feeds:
+        feed_url = feed_info.get('url', '')
+        feed_name = feed_info.get('name', 'Unknown')
+        category = feed_info.get('category', 'General')
+        country = feed_info.get('country', 'Unknown')
+
         try:
-            print(f"Fetching from {feed_url.split('/')[-2] if '/' in feed_url else feed_url}...")
             feed = feedparser.parse(feed_url)
 
-            for entry in feed.entries[:per_feed]:
+            if not feed.entries:
+                print(f"  ✗ {feed_name:30s} (no articles)")
+                failed_feeds += 1
+                continue
+
+            # Get articles from this feed
+            articles_found = 0
+            for entry in feed.entries[:articles_per_feed]:
                 article = {
                     'title': entry.get('title', 'Untitled'),
                     'description': entry.get('summary', entry.get('description', ''))[:200],
-                    'source': feed.feed.get('title', 'Unknown'),
+                    'source': feed_name,
+                    'category': category,
+                    'country': country,
                     'published': entry.get('published', datetime.now().isoformat()),
                     'link': entry.get('link', '')
                 }
                 articles.append(article)
+                articles_found += 1
+
+            print(f"  ✓ {feed_name:30s} ({articles_found:2d} articles) [{category}]")
+            successful_feeds += 1
+
+            # Stop if we have enough articles
+            if len(articles) >= num_articles:
+                break
 
         except Exception as e:
-            print(f"Warning: Failed to fetch {feed_url}: {e}")
+            error_msg = str(e)[:40]
+            print(f"  ✗ {feed_name:30s} ({error_msg})")
+            failed_feeds += 1
 
-    # Ensure we have exactly the requested number
+    print(f"\n{'='*70}")
+    print(f"Scraping Summary: {successful_feeds}/{len(feeds)} feeds successful")
+    print(f"Articles collected: {len(articles)} (target: {num_articles})")
+    print(f"{'='*70}\n")
+
+    # Return exactly the requested number
     return articles[:num_articles]
 
 

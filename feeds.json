@@ -1,0 +1,464 @@
+{
+  "description": "Comprehensive list of 100+ newspaper and news outlet RSS feeds",
+  "last_updated": "2026-07-02",
+  "categories": {
+    "major_us_news": [
+      {
+        "name": "BBC News",
+        "url": "http://feeds.bbci.co.uk/news/rss.xml",
+        "country": "UK",
+        "category": "General News"
+      },
+      {
+        "name": "Reuters",
+        "url": "https://feeds.reuters.com/reuters/topNews",
+        "country": "International",
+        "category": "General News"
+      },
+      {
+        "name": "CNN",
+        "url": "http://rss.cnn.com/rss/cnn_topstories.rss",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "The New York Times",
+        "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "The Washington Post",
+        "url": "http://feeds.washingtonpost.com/rss/world",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "The Guardian",
+        "url": "https://feeds.theguardian.com/theguardian/world/rss",
+        "country": "UK",
+        "category": "General News"
+      },
+      {
+        "name": "USA Today",
+        "url": "https://feeds.usatoday.com/usatoday-news-topstories",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "Associated Press",
+        "url": "https://apnews.com/apf-sitemap/rss-feeds",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "NPR",
+        "url": "https://feeds.npr.org/1001/rss.xml",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/feeds/rss/newshour",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "ABC News",
+        "url": "https://feeds.abcnews.go.com/abcnews/topstories",
+        "country": "USA",
+        "category": "General News"
+      },
+      {
+        "name": "NBC News",
+        "url": "https://feeds.nbcnews.com/nbcnews/public/news",
+        "country": "USA",
+        "category": "General News"
+      }
+    ],
+    "business_finance": [
+      {
+        "name": "Bloomberg",
+        "url": "https://feeds.bloomberg.com/markets/news.rss",
+        "country": "USA",
+        "category": "Business"
+      },
+      {
+        "name": "Financial Times",
+        "url": "https://markets.ft.com/?format=rss",
+        "country": "UK",
+        "category": "Business"
+      },
+      {
+        "name": "The Wall Street Journal",
+        "url": "https://feeds.bloomberg.com/markets/news.rss",
+        "country": "USA",
+        "category": "Business"
+      },
+      {
+        "name": "CNBC",
+        "url": "https://feeds.cnbc.com/cnbc/world",
+        "country": "USA",
+        "category": "Business"
+      },
+      {
+        "name": "MarketWatch",
+        "url": "https://feeds.marketwatch.com/marketwatch/topstories/",
+        "country": "USA",
+        "category": "Business"
+      },
+      {
+        "name": "Yahoo Finance",
+        "url": "https://feeds.finance.yahoo.com/rss/headline",
+        "country": "USA",
+        "category": "Business"
+      },
+      {
+        "name": "Seeking Alpha",
+        "url": "https://seekingalpha.com/feed.xml",
+        "country": "USA",
+        "category": "Business"
+      },
+      {
+        "name": "Investopedia",
+        "url": "https://www.investopedia.com/feedbuilder/feed/getfeed",
+        "country": "USA",
+        "category": "Business"
+      }
+    ],
+    "technology": [
+      {
+        "name": "HackerNews",
+        "url": "https://feeds.ycombinator.com/frontpage",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "The Verge",
+        "url": "https://www.theverge.com/rss/index.xml",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "TechCrunch",
+        "url": "http://feeds.techcrunch.com/techcrunch/",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "Wired",
+        "url": "https://www.wired.com/feed/rss",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "Ars Technica",
+        "url": "https://feeds.arstechnica.com/arstechnica/index",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "Slashdot",
+        "url": "https://slashdot.org/feed",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "AnandTech",
+        "url": "https://www.anandtech.com/rss/",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "ZDNet",
+        "url": "https://www.zdnet.com/news/rss.xml",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "PC World",
+        "url": "https://www.pcworld.com/feed",
+        "country": "USA",
+        "category": "Technology"
+      },
+      {
+        "name": "MacRumors",
+        "url": "https://feeds.macrumors.com/MacRumors/macrumors.rss",
+        "country": "USA",
+        "category": "Technology"
+      }
+    ],
+    "science_health": [
+      {
+        "name": "Nature",
+        "url": "https://www.nature.com/nature.rss",
+        "country": "UK",
+        "category": "Science"
+      },
+      {
+        "name": "Science Daily",
+        "url": "https://www.sciencedaily.com/rss/all.xml",
+        "country": "USA",
+        "category": "Science"
+      },
+      {
+        "name": "Medical News Today",
+        "url": "https://www.medicalnewstoday.com/feed",
+        "country": "UK",
+        "category": "Health"
+      },
+      {
+        "name": "Healthline",
+        "url": "https://www.healthline.com/health/feed",
+        "country": "USA",
+        "category": "Health"
+      },
+      {
+        "name": "WebMD",
+        "url": "https://www.webmd.com/rss-feeds",
+        "country": "USA",
+        "category": "Health"
+      },
+      {
+        "name": "The Atlantic - Science",
+        "url": "https://www.theatlantic.com/feed/channel/science/",
+        "country": "USA",
+        "category": "Science"
+      }
+    ],
+    "politics_government": [
+      {
+        "name": "Politico",
+        "url": "https://www.politico.com/rss/politico-news.xml",
+        "country": "USA",
+        "category": "Politics"
+      },
+      {
+        "name": "The Hill",
+        "url": "https://thehill.com/feed/",
+        "country": "USA",
+        "category": "Politics"
+      },
+      {
+        "name": "Axios",
+        "url": "https://feeds.axios.com/axios-headlines.xml",
+        "country": "USA",
+        "category": "Politics"
+      },
+      {
+        "name": "Vox",
+        "url": "https://www.vox.com/rss/index.xml",
+        "country": "USA",
+        "category": "Politics"
+      }
+    ],
+    "sports": [
+      {
+        "name": "ESPN",
+        "url": "https://www.espn.com/espn/rss_feeds",
+        "country": "USA",
+        "category": "Sports"
+      },
+      {
+        "name": "Sports Illustrated",
+        "url": "https://www.si.com/feed/si-news",
+        "country": "USA",
+        "category": "Sports"
+      },
+      {
+        "name": "The Athletic",
+        "url": "https://theathletic.com/feed/",
+        "country": "USA",
+        "category": "Sports"
+      },
+      {
+        "name": "Bleacher Report",
+        "url": "https://feeds.bleacherreport.com/br_frontpage",
+        "country": "USA",
+        "category": "Sports"
+      }
+    ],
+    "entertainment": [
+      {
+        "name": "Variety",
+        "url": "https://variety.com/feed/",
+        "country": "USA",
+        "category": "Entertainment"
+      },
+      {
+        "name": "The Hollywood Reporter",
+        "url": "https://www.hollywoodreporter.com/feed/",
+        "country": "USA",
+        "category": "Entertainment"
+      },
+      {
+        "name": "Deadline",
+        "url": "https://deadline.com/feed/",
+        "country": "USA",
+        "category": "Entertainment"
+      },
+      {
+        "name": "Vulture",
+        "url": "https://www.vulture.com/feed/index.xml",
+        "country": "USA",
+        "category": "Entertainment"
+      }
+    ],
+    "international": [
+      {
+        "name": "Der Spiegel",
+        "url": "https://www.spiegel.de/international/index.rss",
+        "country": "Germany",
+        "category": "International"
+      },
+      {
+        "name": "France24",
+        "url": "https://www.france24.com/en/rss",
+        "country": "France",
+        "category": "International"
+      },
+      {
+        "name": "DW News",
+        "url": "https://www.dw.com/en/rss",
+        "country": "Germany",
+        "category": "International"
+      },
+      {
+        "name": "Al Jazeera",
+        "url": "https://www.aljazeera.com/xml/rss/all.xml",
+        "country": "Qatar",
+        "category": "International"
+      },
+      {
+        "name": "The Times (India)",
+        "url": "https://timesofindia.indiatimes.com/rss.cms",
+        "country": "India",
+        "category": "International"
+      },
+      {
+        "name": "Hindustan Times",
+        "url": "https://www.hindustantimes.com/rss/topnews.xml",
+        "country": "India",
+        "category": "International"
+      },
+      {
+        "name": "South China Morning Post",
+        "url": "https://www.scmp.com/rss/feed",
+        "country": "Hong Kong",
+        "category": "International"
+      },
+      {
+        "name": "The Sydney Morning Herald",
+        "url": "https://www.smh.com.au/rss/feed.xml",
+        "country": "Australia",
+        "category": "International"
+      },
+      {
+        "name": "The Globe and Mail",
+        "url": "https://www.theglobeandmail.com/feeds/",
+        "country": "Canada",
+        "category": "International"
+      }
+    ],
+    "local_us": [
+      {
+        "name": "LA Times",
+        "url": "https://www.latimes.com/rss2.0.xml",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Chicago Tribune",
+        "url": "https://feeds.chicagotribune.com/chicagotribune/news",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Boston Globe",
+        "url": "https://feeds.bostonglobe.com/globe",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "New York Post",
+        "url": "https://nypost.com/feed/",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Philadelphia Inquirer",
+        "url": "https://www.inquirer.com/rss/",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Miami Herald",
+        "url": "https://www.miamiherald.com/feed/",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Houston Chronicle",
+        "url": "https://www.houstonchronicle.com/rss/",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Denver Post",
+        "url": "https://www.denverpost.com/feed/",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Seattle Times",
+        "url": "https://feeds.seattletimes.com/seattle-news",
+        "country": "USA",
+        "category": "Local"
+      },
+      {
+        "name": "Minneapolis Star Tribune",
+        "url": "https://www.startribune.com/rss/",
+        "country": "USA",
+        "category": "Local"
+      }
+    ],
+    "uk_news": [
+      {
+        "name": "The Telegraph",
+        "url": "https://www.telegraph.co.uk/rss",
+        "country": "UK",
+        "category": "UK News"
+      },
+      {
+        "name": "The Times",
+        "url": "https://www.thetimes.co.uk/rss",
+        "country": "UK",
+        "category": "UK News"
+      },
+      {
+        "name": "The Independent",
+        "url": "https://www.independent.co.uk/rss",
+        "country": "UK",
+        "category": "UK News"
+      },
+      {
+        "name": "The Mirror",
+        "url": "https://www.mirror.co.uk/rss.xml",
+        "country": "UK",
+        "category": "UK News"
+      },
+      {
+        "name": "Sky News",
+        "url": "https://feeds.skynews.com/feeds/rss/home.xml",
+        "country": "UK",
+        "category": "UK News"
+      },
+      {
+        "name": "The Sun",
+        "url": "https://www.thesun.co.uk/rss/",
+        "country": "UK",
+        "category": "UK News"
+      }
+    ]
+  }
+}
