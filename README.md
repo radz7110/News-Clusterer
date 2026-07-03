@@ -1,21 +1,21 @@
-# 📰 News Headline Clusterer
+# News Headline Clusterer
 
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Stars](https://img.shields.io/github/stars/yourusername/news-headline-clusterer.svg)](https://github.com/yourusername/news-headline-clusterer)
 
-> **Automatically discover, cluster, and visualize news headlines from 100+ newspapers worldwide using AI**
+Automatically discover, cluster, and visualize news headlines from 100+ newspapers worldwide using AI.
 
 An intelligent pipeline that:
-1. 📡 **Scrapes** 100+ headlines from major news sources
-2. 🧠 **Embeds** them with semantic AI (Claude)
-3. 🎯 **Clusters** automatically with DBSCAN
-4. 🏷️ **Labels** clusters with LLM intelligence
-5. 📊 **Visualizes** results as interactive 2D maps
+1. Scrapes 100+ headlines from major news sources
+2. Embeds them with semantic AI (Claude)
+3. Clusters automatically with DBSCAN
+4. Labels clusters with LLM intelligence
+5. Visualizes results as interactive 2D maps
 
 Perfect for journalists, researchers, data analysts, and news aggregators.
 
-## ✨ Features
+## Features
 
 - **100+ Newspaper Sources** - BBC, Reuters, CNN, Bloomberg, TechCrunch, Al Jazeera, and more
 - **Smart Embeddings** - Semantic vectors using Claude API
@@ -27,7 +27,7 @@ Perfect for journalists, researchers, data analysts, and news aggregators.
 - **Feed Management** - Add, remove, test feeds easily
 - **Multiple Examples** - Tech-only, international, business-focused clustering
 
-## 🏗️ How It Works
+## How It Works
 
 ```
 100+ Newspaper RSS Feeds
@@ -75,7 +75,7 @@ DIMENSIONALITY
   └─────────────────────┘
 ```
 
-## 📚 Example Usage
+## Example Usage
 
 ### Basic: Cluster News from 100+ Sources
 ```python
@@ -122,7 +122,7 @@ for country in sorted(by_country.keys()):
 
 See [NEWSPAPERS.md](NEWSPAPERS.md) for more examples.
 
-## 🚀 Quick Start (5 minutes)
+## Quick Start (5 minutes)
 
 ### 1. Clone the Repository
 ```bash
@@ -172,7 +172,7 @@ Should show: ✓ All systems ready!
 python topic_clusterer.py
 ```
 
-## 📊 View Results
+## View Results
 
 After running, you get 3 output files:
 
@@ -184,7 +184,7 @@ After running, you get 3 output files:
 
 **Try the interactive map first!** It's the best way to explore clusters.
 
-## 📁 Project Files
+## Project Files
 
 | File | Purpose |
 |------|---------|
@@ -198,7 +198,7 @@ After running, you get 3 output files:
 | **requirements.txt** | Python dependencies |
 | **.env.example** | Template for API key |
 
-## 🎯 Common Tasks
+## Common Tasks
 
 ### Run the Full Pipeline
 ```bash
@@ -235,21 +235,21 @@ python test_setup.py
 # Checks dependencies, API key, RSS connectivity
 ```
 
-## 📚 Documentation
+## Documentation
 
 - **[QUICKSTART.md](QUICKSTART.md)** - 5-minute setup guide
 - **[NEWSPAPERS.md](NEWSPAPERS.md)** - Use 100+ newspaper sources
 - **[PROJECT_INDEX.md](PROJECT_INDEX.md)** - Complete project overview
 - **[example_usage.py](example_usage.py)** - 5 clustering examples
 
-## 💡 Use Cases
+## Use Cases
 
-✅ **Journalists** - Find trending topics across sources  
-✅ **Researchers** - Analyze news coverage by country/category  
-✅ **Traders** - Track business/finance news  
-✅ **Data Scientists** - Benchmark clustering/embeddings  
-✅ **Students** - Learn NLP, clustering, embeddings  
-✅ **News Aggregators** - Automated story detection  
+- **Journalists** - Find trending topics across sources  
+- **Researchers** - Analyze news coverage by country/category  
+- **Traders** - Track business/finance news  
+- **Data Scientists** - Benchmark clustering/embeddings  
+- **Students** - Learn NLP, clustering, embeddings  
+- **News Aggregators** - Automated story detection  
 
 ### Output Files
 
@@ -281,7 +281,7 @@ labels, n_clusters = cluster_with_dbscan(embeddings, eps=0.6, min_samples=2)
   - Lower = more small clusters
   - Higher = more noise points
 
-## 🔧 Technology Stack
+## Technology Stack
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
@@ -293,7 +293,7 @@ labels, n_clusters = cluster_with_dbscan(embeddings, eps=0.6, min_samples=2)
 | **Static Viz** | Matplotlib + Seaborn | PNG plots |
 | **Interactive Viz** | Plotly | HTML dashboard |
 
-## ⚡ Performance & Costs
+## Performance & Costs
 
 - **Runtime**: 3-5 minutes for 100 articles
 - **API Cost**: ~$0.05 per run
@@ -357,7 +357,7 @@ labels, n_clusters = cluster_with_dbscan(embeddings, eps=0.6, min_samples=2)
 }
 ```
 
-## ❓ FAQ
+## FAQ
 
 ### Q: How much does this cost?
 **A:** Anthropic API: ~$0.05 per run (embeddings + labeling). RSS feeds: Free.
@@ -383,7 +383,7 @@ with open('clustering_results.json') as f:
 ### Q: Can this work offline?
 **A:** RSS scraping needs internet. Claude API calls need internet. Clustering/visualization work offline once you have data.
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
