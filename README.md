@@ -456,10 +456,6 @@ colors = sns.color_palette("coolwarm", len(unique_labels))
 
 MIT
 
-## Author
-
-Created with Claude Code
-
 ---
 
-**Questions?** Check the inline code comments or open an issue!
+**Questions?** Check the documentation or open an issue on GitHub.
