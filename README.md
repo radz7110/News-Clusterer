@@ -305,15 +305,16 @@ labels, n_clusters = cluster_with_dbscan(embeddings, eps=0.6, min_samples=2)
 
 ## Technology Stack
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Scraping** | feedparser | RSS feed parsing |
-| **Embeddings** | Claude 3.5 Haiku API | Semantic vectors |
-| **Clustering** | scikit-learn DBSCAN | Density-based grouping |
-| **Labeling** | Claude 3.5 Haiku API | LLM labels |
-| **Reduction** | PCA | 2D projection |
-| **Static Viz** | Matplotlib + Seaborn | PNG plots |
-| **Interactive Viz** | Plotly | HTML dashboard |
+| Layer | Technology | Cost | Notes |
+|-------|-----------|------|-------|
+| **Scraping** | feedparser | Free | RSS parsing |
+| **Embeddings** | Sentence Transformers (default) | Free | Local, 384D vectors |
+| **Embeddings** | Claude API (optional) | $0.01-0.03 | Better quality labels |
+| **Clustering** | scikit-learn DBSCAN | Free | Density-based grouping |
+| **Labeling** | Keyword analysis (free) or Claude (paid) | Free/$0.02 | Auto or LLM |
+| **Reduction** | PCA | Free | 2D projection |
+| **Visualization** | Matplotlib + Seaborn | Free | PNG plots |
+| **Visualization** | Plotly | Free | Interactive HTML |
 
 ## Performance & Costs
 

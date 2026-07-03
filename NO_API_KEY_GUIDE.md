@@ -41,22 +41,38 @@ python topic_clusterer.py
 
 **What happens:**
 1. Scrapes 100 real headlines from RSS feeds (free)
-2. Generates embeddings locally using `sentence-transformers` (free)
-3. Clusters with DBSCAN (free)
+2. Generates embeddings locally using Sentence Transformers (free, open-source)
+3. Clusters with DBSCAN (free, scikit-learn)
 4. Labels using keyword analysis (free)
 5. Creates visualizations (free)
 
+**Embeddings Used:**
+- **Sentence Transformers** (`all-MiniLM-L6-v2`)
+  - Free, open-source
+  - Runs entirely locally
+  - 384-dimensional vectors
+  - High quality
+  - ~400MB download (one time)
+
 **What you get:**
 - Real news from 100+ newspapers
-- High-quality semantic embeddings (~384 dimensions)
+- High-quality semantic embeddings
 - Professional clustering results
 - Interactive visualization
 - ~2-3 minutes to run
 
 **Requirements:**
-- Internet connection (to scrape RSS feeds)
+- Internet connection (to scrape RSS feeds only)
 - ~400MB disk space (model downloads on first run)
 - No API keys needed
+- No registration needed
+
+**Alternative Embeddings (if you want different models):**
+- Universal Sentence Encoder (free, Google)
+- Other Sentence Transformers models (free, open-source)
+- BERT-based models (free, open-source)
+
+Contact us if you want different embedding options!
 
 **Perfect for:**
 - Production use without costs
