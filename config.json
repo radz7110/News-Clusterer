@@ -1,0 +1,53 @@
+{
+  "scraping": {
+    "num_articles": 100,
+    "feeds": [
+      "http://feeds.bbci.co.uk/news/rss.xml",
+      "https://feeds.reuters.com/reuters/topNews",
+      "http://rss.cnn.com/rss/cnn_topstories.rss",
+      "https://feeds.theguardian.com/theguardian/world/rss",
+      "https://feeds.ycombinator.com/frontpage"
+    ],
+    "timeout": 30
+  },
+  "embedding": {
+    "model": "claude-3-5-haiku-20241022",
+    "batch_size": 50,
+    "dimension": 10,
+    "use_cache": true
+  },
+  "clustering": {
+    "algorithm": "dbscan",
+    "eps": 0.6,
+    "min_samples": 2,
+    "metric": "cosine",
+    "scaler": "StandardScaler"
+  },
+  "labeling": {
+    "model": "claude-3-5-haiku-20241022",
+    "max_articles_per_cluster": 10,
+    "label_length": "2-3 words"
+  },
+  "visualization": {
+    "dimensionality_reduction": "pca",
+    "n_components": 2,
+    "static_format": "png",
+    "static_dpi": 300,
+    "interactive_format": "html",
+    "color_palette": "husl",
+    "figure_size": [14, 10],
+    "marker_size": 100,
+    "marker_opacity": 0.7
+  },
+  "output": {
+    "static_plot": "topic_clusters.png",
+    "interactive_plot": "topic_clusters.html",
+    "results_json": "clustering_results.json",
+    "results_csv": "clustering_results.csv",
+    "embeddings_cache": "embeddings_cache.pkl"
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(levelname)s - %(message)s"
+  }
+}
