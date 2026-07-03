@@ -146,18 +146,22 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Set Up API Key
-Get your free Anthropic API key from [console.anthropic.com](https://console.anthropic.com/)
+### 4. Set Up API Key (Optional!)
 
-Create `.env` file in project root:
-```env
-ANTHROPIC_API_KEY=sk-ant-your-key-here
-```
+**No API key needed to get started!** See [NO_API_KEY_GUIDE.md](NO_API_KEY_GUIDE.md) for free options.
 
-Or copy the template:
+To use Claude API for best results (optional):
+
+1. Get free API key from [console.anthropic.com](https://console.anthropic.com/)
+2. Create `.env` file:
+   ```env
+   ANTHROPIC_API_KEY=sk-ant-your-key-here
+   ```
+
+Or copy template:
 ```bash
 cp .env.example .env
-# Then edit .env with your actual API key
+# Edit with your actual key
 ```
 
 ### 5. Validate Setup (Optional)
@@ -168,9 +172,26 @@ python test_setup.py
 Should show: ✓ All systems ready!
 
 ### 6. Run the Pipeline
+
+**Option A: Interactive (choose when you run)**
 ```bash
 python topic_clusterer.py
+# Select 1 for demo or 2 for real data
 ```
+
+**Option B: Demo Mode (no API key, no internet)**
+```bash
+python topic_clusterer.py --demo
+# Uses sample headlines, instant results
+```
+
+**Option C: Real Data (no API key, needs internet)**
+```bash
+python topic_clusterer.py --real
+# Scrapes real headlines, free local embeddings
+```
+
+See [NO_API_KEY_GUIDE.md](NO_API_KEY_GUIDE.md) for detailed options.
 
 ## View Results
 
@@ -237,6 +258,7 @@ python test_setup.py
 
 ## Documentation
 
+- **[NO_API_KEY_GUIDE.md](NO_API_KEY_GUIDE.md)** - Run without API keys (demo or free embeddings)
 - **[QUICKSTART.md](QUICKSTART.md)** - 5-minute setup guide
 - **[NEWSPAPERS.md](NEWSPAPERS.md)** - Use 100+ newspaper sources
 - **[PROJECT_INDEX.md](PROJECT_INDEX.md)** - Complete project overview

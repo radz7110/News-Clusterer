@@ -20,7 +20,18 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_distances
 from dotenv import load_dotenv
-import anthropic
+
+try:
+    import anthropic
+    HAS_ANTHROPIC = True
+except ImportError:
+    HAS_ANTHROPIC = False
+
+try:
+    from sentence_transformers import SentenceTransformer
+    HAS_SENTENCE_TRANSFORMERS = True
+except ImportError:
+    HAS_SENTENCE_TRANSFORMERS = False
 
 # Load environment variables
 load_dotenv()
@@ -139,18 +150,58 @@ def scrape_rss_feeds(num_articles: int = 100, use_json_feeds: bool = True) -> Li
     return articles[:num_articles]
 
 
-def embed_headlines(headlines: List[str], model: str = "text-embedding-3-small") -> np.ndarray:
+def embed_headlines(headlines: List[str], use_local: bool = True) -> np.ndarray:
     """
-    Embed headlines using OpenAI's embedding API.
-    Returns numpy array of shape (n_headlines, embedding_dim)
-    """
-    client = anthropic.Anthropic()
+    Embed headlines using either local (free) or Claude (paid) embeddings.
 
+    Args:
+        headlines: List of headlines to embed
+        use_local: If True, use sentence-transformers (free, local).
+                  If False, use Claude API (requires API key).
+
+    Returns:
+        numpy array of shape (n_headlines, embedding_dim)
+    """
     print(f"Embedding {len(headlines)} headlines...")
 
-    # Use Claude's built-in context window - we'll create embeddings via claude with structured processing
-    # For production, use a proper embedding API like OpenAI or Hugging Face
-    # For this demo, we'll simulate embeddings based on semantic similarity
+    if use_local:
+        return _embed_headlines_local(headlines)
+    else:
+        return _embed_headlines_anthropic(headlines)
+
+
+def _embed_headlines_local(headlines: List[str]) -> np.ndarray:
+    """Embed using free local sentence-transformers model."""
+    if not HAS_SENTENCE_TRANSFORMERS:
+        print("Error: sentence-transformers not installed")
+        print("Install with: pip install sentence-transformers")
+        sys.exit(1)
+
+    print("Using local embeddings (free, no API key needed)")
+    print("Downloading model on first run (~400MB)...")
+
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    embeddings = model.encode(headlines, show_progress_bar=True)
+
+    print(f"Generated {len(embeddings)} embeddings")
+    return np.array(embeddings)
+
+
+def _embed_headlines_anthropic(headlines: List[str]) -> np.ndarray:
+    """Embed using Claude API (requires ANTHROPIC_API_KEY)."""
+    if not HAS_ANTHROPIC:
+        print("Error: anthropic package not installed")
+        print("Install with: pip install anthropic")
+        sys.exit(1)
+
+    api_key = os.getenv('ANTHROPIC_API_KEY')
+    if not api_key:
+        print("Error: ANTHROPIC_API_KEY not found in .env file")
+        print("Set up your API key and try again")
+        sys.exit(1)
+
+    print("Using Claude API embeddings (requires API key)")
+    client = anthropic.Anthropic(api_key=api_key)
 
     embeddings = []
     batch_size = 50
@@ -159,7 +210,6 @@ def embed_headlines(headlines: List[str], model: str = "text-embedding-3-small")
         batch = headlines[i:i + batch_size]
         batch_text = "\n".join([f"{j+1}. {h}" for j, h in enumerate(batch)])
 
-        # Use Claude to generate semantic embeddings via text comparison
         message = client.messages.create(
             model="claude-3-5-haiku-20241022",
             max_tokens=4096,
@@ -176,7 +226,6 @@ Output valid JSON array of objects: [{{"index": 0, "embedding": [numbers...]}}, 
 
         try:
             response_text = message.content[0].text
-            # Extract JSON from response
             json_start = response_text.find('[')
             json_end = response_text.rfind(']') + 1
             if json_start != -1 and json_end > json_start:
@@ -185,7 +234,6 @@ Output valid JSON array of objects: [{{"index": 0, "embedding": [numbers...]}}, 
                     embeddings.append(item.get('embedding', [0]*10))
         except Exception as e:
             print(f"Warning: Failed to parse embeddings: {e}")
-            # Use fallback: random embeddings for this batch
             embeddings.extend([[np.random.random() for _ in range(10)] for _ in range(len(batch))])
 
     return np.array(embeddings[:len(headlines)])
@@ -217,12 +265,25 @@ def cluster_with_dbscan(embeddings: np.ndarray, eps: float = 0.5, min_samples: i
     return labels, n_clusters
 
 
-def label_clusters_with_llm(articles: List[dict], labels: np.ndarray) -> dict:
+def label_clusters_with_llm(articles: List[dict], labels: np.ndarray, use_llm: bool = True) -> dict:
     """
     Use Claude to generate meaningful labels for each cluster.
+    If use_llm is False, generates simple labels based on keywords.
     Returns dict mapping cluster_id -> label
     """
-    client = anthropic.Anthropic()
+    if not use_llm:
+        return _label_clusters_simple(articles, labels)
+
+    if not HAS_ANTHROPIC:
+        print("Warning: anthropic not available, using simple labeling")
+        return _label_clusters_simple(articles, labels)
+
+    api_key = os.getenv('ANTHROPIC_API_KEY')
+    if not api_key:
+        print("Warning: ANTHROPIC_API_KEY not set, using simple labeling")
+        return _label_clusters_simple(articles, labels)
+
+    client = anthropic.Anthropic(api_key=api_key)
     cluster_labels = {}
 
     unique_labels = set(labels)
@@ -256,6 +317,48 @@ Headlines:
         print(f"Cluster {cluster_id}: {label_text} ({len(cluster_articles)} articles)")
 
     # Label noise points
+    if -1 in labels:
+        cluster_labels[-1] = "Miscellaneous"
+
+    return cluster_labels
+
+
+def _label_clusters_simple(articles: List[dict], labels: np.ndarray) -> dict:
+    """
+    Generate simple labels based on keywords from cluster articles.
+    Used when Claude API is not available.
+    """
+    cluster_labels = {}
+    unique_labels = sorted(set(labels))
+    unique_labels.discard(-1)
+
+    for cluster_id in unique_labels:
+        cluster_articles = [articles[i]['title'] for i in range(len(labels)) if labels[i] == cluster_id]
+
+        if len(cluster_articles) == 0:
+            cluster_labels[cluster_id] = f"Cluster {cluster_id}"
+            continue
+
+        # Extract common words from titles
+        all_words = []
+        for title in cluster_articles:
+            words = [w.lower() for w in title.split() if len(w) > 4]
+            all_words.extend(words)
+
+        # Find most common words
+        from collections import Counter
+        word_freq = Counter(all_words)
+        top_words = [word for word, _ in word_freq.most_common(3)]
+
+        # Create label from top words
+        if top_words:
+            label = " ".join(top_words).title()[:30]
+        else:
+            label = f"Cluster {cluster_id}"
+
+        cluster_labels[cluster_id] = label
+        print(f"Cluster {cluster_id}: {label} ({len(cluster_articles)} articles)")
+
     if -1 in labels:
         cluster_labels[-1] = "Miscellaneous"
 
@@ -463,18 +566,46 @@ def main():
     Main pipeline: scrape → embed → cluster → label → visualize
     """
     print("=" * 60)
-    print("📰 News Headline Clusterer")
+    print("News Headline Clusterer")
     print("=" * 60)
 
-    # 1. Scrape articles
-    print("\n[1/6] Scraping RSS feeds...")
-    articles = scrape_rss_feeds(num_articles=100)
-    print(f"Scraped {len(articles)} articles")
+    # Determine mode
+    use_demo = False
+    use_local_embeddings = True
+    use_llm = True
+
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '--demo':
+            use_demo = True
+        elif sys.argv[1] == '--real':
+            use_demo = False
+    else:
+        # Ask user
+        print("\nChoose mode:")
+        print("1. Demo (sample data, no API key needed)")
+        print("2. Real data (requires internet for RSS feeds)")
+        choice = input("\nEnter choice (1 or 2): ").strip()
+
+        if choice == "1":
+            use_demo = True
+        else:
+            use_demo = False
+
+    # 1. Get articles
+    if use_demo:
+        print("\n[1/6] Loading demo data...")
+        from demo_data import get_demo_data
+        articles = get_demo_data()
+        print(f"Loaded {len(articles)} demo articles")
+    else:
+        print("\n[1/6] Scraping RSS feeds...")
+        articles = scrape_rss_feeds(num_articles=100)
+        print(f"Scraped {len(articles)} articles")
 
     # 2. Embed headlines
     print("\n[2/6] Embedding headlines...")
     headlines = [article['title'] for article in articles]
-    embeddings = embed_headlines(headlines)
+    embeddings = embed_headlines(headlines, use_local=True)
     print(f"Embeddings shape: {embeddings.shape}")
 
     # 3. Cluster with DBSCAN
@@ -482,8 +613,8 @@ def main():
     labels, n_clusters = cluster_with_dbscan(embeddings, eps=0.6, min_samples=2)
 
     # 4. Label clusters
-    print("\n[4/6] Labeling clusters with LLM...")
-    cluster_labels = label_clusters_with_llm(articles, labels)
+    print("\n[4/6] Labeling clusters...")
+    cluster_labels = label_clusters_with_llm(articles, labels, use_llm=not use_demo)
 
     # 5. Reduce to 2D
     print("\n[5/6] Reducing to 2D...")
