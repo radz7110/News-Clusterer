@@ -4,28 +4,32 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Stars](https://img.shields.io/github/stars/yourusername/news-headline-clusterer.svg)](https://github.com/yourusername/news-headline-clusterer)
 
-Automatically discover, cluster, and visualize news headlines from 100+ newspapers worldwide using AI.
+Automatically discover, cluster, and visualize news headlines from 100+ newspapers worldwide using AI embeddings.
+
+Works completely free with no API keys required. Choose from demo mode or real data with free local embeddings.
 
 An intelligent pipeline that:
-1. Scrapes 100+ headlines from major news sources
-2. Embeds them with semantic AI (Claude)
+1. Scrapes headlines from major news sources (or uses demo data)
+2. Embeds with free local AI (Sentence Transformers)
 3. Clusters automatically with DBSCAN
-4. Labels clusters with LLM intelligence
+4. Labels clusters (keyword-based or LLM-enhanced)
 5. Visualizes results as interactive 2D maps
 
 Perfect for journalists, researchers, data analysts, and news aggregators.
 
 ## Features
 
+- **Zero Cost to Start** - Demo mode works instantly with no setup
 - **100+ Newspaper Sources** - BBC, Reuters, CNN, Bloomberg, TechCrunch, Al Jazeera, and more
-- **Smart Embeddings** - Semantic vectors using Claude API
+- **Free Local Embeddings** - Sentence Transformers (384D vectors, runs locally)
 - **Automatic Clustering** - DBSCAN finds optimal groups (no tuning needed)
-- **Intelligent Labeling** - Claude generates meaningful 2-3 word topic names
+- **Smart Labeling** - Keyword-based (free) or Claude LLM (optional, paid)
 - **Interactive Visualization** - Plotly HTML map with hover details, zoom, pan
-- **Static Plots** - High-resolution PNG images
-- **Structured Export** - JSON data for downstream analysis
-- **Feed Management** - Add, remove, test feeds easily
-- **Multiple Examples** - Tech-only, international, business-focused clustering
+- **Static Plots** - High-resolution PNG scatter plots
+- **Structured Export** - Complete JSON data for analysis
+- **Feed Management** - Add, remove, test newspaper sources
+- **Multiple Running Modes** - Demo, real data, or interactive choice
+- **No API Keys Required** - Works completely free
 
 ## How It Works
 
@@ -122,76 +126,53 @@ for country in sorted(by_country.keys()):
 
 See [NEWSPAPERS.md](NEWSPAPERS.md) for more examples.
 
-## Quick Start (5 minutes)
+## Quick Start
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR-USERNAME/topic-clusterer.git
-cd topic-clusterer
+git clone https://github.com/YOUR-USERNAME/news-headline-clusterer.git
+cd news-headline-clusterer
 ```
 
-### 2. Create Virtual Environment
+### 2. Install Dependencies
 ```bash
 python -m venv venv
+venv\Scripts\activate  # Windows
+# or: source venv/bin/activate  # macOS/Linux
 
-# Windows
-venv\Scripts\activate
-
-# macOS/Linux
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-```bash
 pip install -r requirements.txt
 ```
 
-### 4. Set Up API Key (Optional!)
+### 3. Run (Choose Your Mode)
 
-**No API key needed to get started!** See [NO_API_KEY_GUIDE.md](NO_API_KEY_GUIDE.md) for free options.
-
-To use Claude API for best results (optional):
-
-1. Get free API key from [console.anthropic.com](https://console.anthropic.com/)
-2. Create `.env` file:
-   ```env
-   ANTHROPIC_API_KEY=sk-ant-your-key-here
-   ```
-
-Or copy template:
+**Demo Mode (10 seconds, no setup)**
 ```bash
-cp .env.example .env
-# Edit with your actual key
+python topic_clusterer.py --demo
 ```
+Sample headlines, instant clustering. Perfect for quick test.
 
-### 5. Validate Setup (Optional)
+**Real Data (2-3 minutes, free embeddings)**
 ```bash
-python test_setup.py
+python topic_clusterer.py --real
 ```
+Real headlines from 100+ newspapers. Free local embeddings, no API key needed.
 
-Should show: ✓ All systems ready!
-
-### 6. Run the Pipeline
-
-**Option A: Interactive (choose when you run)**
+**Interactive (You choose)**
 ```bash
 python topic_clusterer.py
 # Select 1 for demo or 2 for real data
 ```
 
-**Option B: Demo Mode (no API key, no internet)**
+**With Enhanced Labels (Optional, Paid)**
 ```bash
-python topic_clusterer.py --demo
-# Uses sample headlines, instant results
-```
+# Create .env file:
+ANTHROPIC_API_KEY=sk-ant-your-key-here
 
-**Option C: Real Data (no API key, needs internet)**
-```bash
 python topic_clusterer.py --real
-# Scrapes real headlines, free local embeddings
+# Uses Claude for better labels (~$0.05 per run)
 ```
 
-See [NO_API_KEY_GUIDE.md](NO_API_KEY_GUIDE.md) for detailed options.
+See [NO_API_KEY_GUIDE.md](NO_API_KEY_GUIDE.md) for detailed comparison of all modes.
 
 ## View Results
 
@@ -207,54 +188,74 @@ After running, you get 3 output files:
 
 ## Project Files
 
+### Core Scripts
 | File | Purpose |
 |------|---------|
 | **topic_clusterer.py** | Main pipeline - run this! |
+| **demo_data.py** | Sample headlines for demo mode |
 | **manage_feeds.py** | Add/remove/test RSS feeds |
 | **scrape_100_newspapers.py** | 5 example clustering scenarios |
 | **analyze_results.py** | Explore results (statistics, search, export) |
 | **test_setup.py** | Verify your setup works |
+
+### Configuration
+| File | Purpose |
+|------|---------|
 | **feeds.json** | 70+ newspaper RSS feeds (categorized) |
 | **config.json** | Tunable parameters |
 | **requirements.txt** | Python dependencies |
 | **.env.example** | Template for API key |
 
+### Documentation
+| File | Purpose |
+|------|---------|
+| **NO_API_KEY_GUIDE.md** | How to run without API keys (demo/free modes) |
+| **QUICKSTART.md** | 5-minute setup guide |
+| **NEWSPAPERS.md** | 100+ newspaper sources guide |
+| **GITHUB_GUIDE.md** | Quick intro for GitHub visitors |
+
 ## Common Tasks
 
-### Run the Full Pipeline
+### Quick Demo (Instant)
 ```bash
-python topic_clusterer.py
+python topic_clusterer.py --demo
 ```
-Scrapes 100 headlines → embeds → clusters → labels → visualizes
+Try it immediately with sample data. No setup needed.
 
-### Try Different Examples
+### Real Data (Free)
+```bash
+python topic_clusterer.py --real
+```
+Full pipeline on real news. Free embeddings, no API key needed.
+
+### Try Different Scenarios
 ```bash
 python scrape_100_newspapers.py
-# Shows menu with 5 options:
-# 1. All sources (100+ newspapers)
-# 2. Tech-only clustering
-# 3. International comparison
-# 4. Business & finance
-# 5. Multi-language news
 ```
+5 example configurations:
+- All sources (100+ newspapers)
+- Tech-only clustering
+- International comparison
+- Business & finance
+- Multi-language news
 
 ### Manage News Sources
 ```bash
 python manage_feeds.py -i
-# Interactive menu to add/remove/test feeds
 ```
+Interactive menu to add/remove/test feeds.
 
 ### Analyze Results
 ```bash
 python analyze_results.py --interactive
-# Explore clusters, search headlines, export data
 ```
+Explore clusters, search headlines, export data.
 
-### Validate Your Setup
+### Validate Setup
 ```bash
 python test_setup.py
-# Checks dependencies, API key, RSS connectivity
 ```
+Check dependencies, API key, RSS connectivity.
 
 ## Documentation
 
@@ -318,10 +319,16 @@ labels, n_clusters = cluster_with_dbscan(embeddings, eps=0.6, min_samples=2)
 
 ## Performance & Costs
 
-- **Runtime**: 3-5 minutes for 100 articles
-- **API Cost**: ~$0.05 per run
-- **RAM**: 2GB minimum, 4GB recommended
-- **Python**: 3.8 or higher
+| Mode | Runtime | Cost | Requirements |
+|------|---------|------|--------------|
+| Demo | ~10 seconds | Free | None |
+| Real (Free) | 2-3 minutes | Free | Internet for RSS |
+| Real (With Claude) | 3-5 minutes | ~$0.05 | API key |
+
+**System Requirements:**
+- Python 3.8+
+- 2GB RAM (4GB recommended)
+- ~400MB disk space (model downloads once)
 
 ## How It Works
 
@@ -460,9 +467,17 @@ colors = sns.color_palette("coolwarm", len(unique_labels))
 
 ## API Costs
 
-- Embedding generation: ~0.01-0.03 USD per run
-- Cluster labeling: ~0.02-0.05 USD per run
+**Default (Free Mode):**
+- Embeddings: Free (Sentence Transformers, local)
+- Labeling: Free (keyword-based)
+- Total: $0
+
+**With Claude API (Optional):**
+- Embeddings: Free (still uses Sentence Transformers)
+- Labeling: ~$0.02-0.05 per run (Claude labels)
 - **Total per run**: ~$0.05 estimate
+
+Most users never need to pay.
 
 ## Future Enhancements
 
